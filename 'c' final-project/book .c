@@ -23,25 +23,31 @@ void add_book()//book.c
         temp->next= ptr;
     }
     ptr->next=NULL;
-	name = (char*)malloc(max * sizeof(char));
+	ptr->name = (char*)malloc(max * sizeof(char));
 	checkname:
+	
 	printf("Enter the book name : ");
-	strcpy(name,takestring_v2());
-	if(!check_name(name))
+	strcpy(ptr->name,takestring_v2());
+	
+	if(!check_name(ptr->name))
 	{
 		printf("Invalid name (please enter only letters)\n");
 		goto checkname;
 	}
 	while (search != NULL) 
 	{
-        if (strcmp(search->name, name) == 0) 
+		
+        if (strcmp(search->name, ptr->name) == 0 && search !=ptr) 
 		{
+			
             printf("\nthis book Already Exists.\n");
             // Prompt for name input again
 			checkname1:
 			printf("Enter the book name : ");
-			strcpy(name,takestring_v2());
-			if(!check_name(name))
+			
+			strcpy(ptr->name,takestring_v2());
+		
+			if(!check_name(ptr->name))
 			{
 				printf("Invalid name (please enter only letters)\n");
 				goto checkname1;
@@ -52,28 +58,29 @@ void add_book()//book.c
 		else
 		{
             search = search->next;
-        }
-    }
-	ptr->name = (char*)malloc(max * sizeof(char));
-    strcpy(ptr->name, name);
+		}
+		
+	}
+	
+	
 	search = head;
-	id = (char*)malloc(max * sizeof(char));
+	ptr->id = (char*)malloc(max * sizeof(char));
 	printf("Enter the book ID : ");
-	strcpy(id,takestring_v2());
+	strcpy(ptr->id,takestring_v2());
 	 while (search != NULL) {
-        if (strcmp(search->id, id) == 0) {
+        if (strcmp(search->id, ptr->id) == 0 && search != ptr) 
+		{
             printf("\nID Already Exists.\n");
             // Prompt for ID input again
             printf("\nEnter ID: ");
-             strcpy(id, takestring_v2());
+             strcpy(ptr->id, takestring_v2());
             // Reset temp pointer to head for rechecking
             search = head;
         } else {
             search = search->next;
         }
     }
-	ptr->id = (char*)malloc(max * sizeof(char));
-    strcpy(ptr->id, id);
+
 	
 	check:
 	printf("Enter the the price  : ");
@@ -86,7 +93,7 @@ void add_book()//book.c
 	}
 	
 	
-	
+	name = (char*)malloc(max * sizeof(char));
 	ptr->author = (char*)malloc(max * sizeof(char));
 	checkname2:
 	printf("Enter the author name : ");
